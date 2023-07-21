@@ -22,7 +22,7 @@
     <div class="container">
       <div class="slider-wrapper" tabindex="0">
 
-        <div class="item" v-for="(index, i) in slides" v-show="(currentImage === i)" v-bind:class="(currentImage === i ? 'active' : '')" @mouseover="stopAutoplay">
+        <div class="item" v-for="(index, i) in slides" v-show="(currentImage === i)" v-bind:class="(currentImage === i ? 'active' : '')" @mouseover="stopAutoplay" @mouseout="startAutoplay">
           <img v-bind:src="index.image" v-bind:alt="index.alt" />
           <div class="text">
             <h3>{{index.title}}</h3>
@@ -33,7 +33,7 @@
         <div class="thumbs">
           <div class="prev" @click="onPrevClick()"></div>
           <div class="next" @click="onNextClick()"></div>
-          <div class="thumb" v-for="(index, i) in slides" v-bind:class="(currentImage === i ? 'active' : '')" @click="onClick(i)" @mouseover="stopAutoplay">
+          <div class="thumb" v-for="(index, i) in slides" v-bind:class="(currentImage === i ? 'active' : '')" @click="onClick(i)" @mouseover="stopAutoplay" @mouseout="startAutoplay">
             <img v-bind:src="index.image" v-bind:alt="index.alt"/>
           </div>
           <!-- <div class="thumb active">
