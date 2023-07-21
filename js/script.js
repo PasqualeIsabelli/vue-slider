@@ -9,10 +9,10 @@ Bonus:
 3- quando il mouse va in hover sullo slider, bloccare l’autoplay e farlo riprendere quando esce
 */
 
-// VARIABILI
 const app = Vue.createApp({
   data() {
     return {
+      // VARIABILE: Array
       slides: [
         {
           image: 'img/01.webp',
@@ -41,26 +41,43 @@ const app = Vue.createApp({
           alt: 'Avenger'
         }
       ],
+      // Imposto una variabile globale di valore 0 che rappresenta l'immagine corrente
       currentImage: 0,
+      // Imposto una variabile globale di valore null che rappresenta il tempo di intervallo per lo scorrimento delle immagini
+      intervalCurrentImage: null,
     }
   },
   methods: {
+    //EVENT CLICK: Click sulla thumb che fa vedere come immagine corrente l'immagine cliccata
     onClick(i){
       this.currentImage = i;
     },
+    // EVENT CLICK: Click sul button prev che fa vedere l'immagine precedente
     onPrevClick(){
       this.currentImage--;
       if (this.currentImage < 0) {
         this.currentImage = this.slides.length - 1
       }
     },
+    // EVENT CLICK: Click sul button next che fa vedere la prossima immagine
     onNextClick(){
       this.currentImage++;
       if (this.currentImage > this.slides.length - 1)
       this.currentImage = 0
+    },
+    // SET INTERVAL: Imposto lo scorrimento automatico per le immagini
+    startAutoplay () {
+      this.intervalCurrentImage = setInterval(() => {
+        this.onNextClick()
+      }, 3000)
+    },
+    // CLEAR INTERVAL: Imposto il blocco dello scorrimento automatico delle immagini con il mouse over
+    stopAutoplay() {
+      clearInterval(this.intervalCurrentImage)
     }
   },
   mounted() {
-    setInterval (this.onNextClick, 3000);
+    // Richiamo la funzione del setInterval
+    this.startAutoplay()
   } 
 }).mount("#app")
